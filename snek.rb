@@ -3,6 +3,11 @@ require_relative "snake"
 
 include Curses
 
+def show_message(window, message)
+  window.setpos(0, 0)
+  window.addstr(message)
+end
+
 begin
   Curses.init_screen
   Curses.cbreak
@@ -14,24 +19,26 @@ begin
   grid_y = Curses.lines
   grid_x = Curses.cols / 2 # snake is two-wide to make each segment appear as a square
 
+  show_message(window, "Snake!")
+
   thread = Thread.start do
     Thread.current[:stop] = false
     Thread.current[:next_instruction] = :right
-    Thread.current[:snake] = Snake.new(grid_y / 2, grid_x / 2)
+    snake = Snake.new(grid_y / 2, grid_x / 2)
 
     loop do
       break if Thread.current[:stop]
 
-      remove, add = Thread.current[:snake].move(Thread.current[:next_instruction])
+      remove, add = snake.move(Thread.current[:next_instruction])
 
-      remove.each do |del|
-        window.setpos(del.y, del.x * 2)
+      remove.each do |segment|
+        window.setpos(segment.y, segment.x * 2)
         window.addstr('  ') # two spaces
       end
 
-      add.each do |add|
-        window.setpos(add.y, add.x * 2)
-        window.addstr(add.sprite)
+      add.each do |segment|
+        window.setpos(segment.y, segment.x * 2)
+        window.addstr(segment.sprite)
       end
 
       window.refresh
