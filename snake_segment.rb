@@ -1,6 +1,5 @@
 class SnakeSegment
-  attr_accessor :y, :x
-  attr_reader :sprite
+  attr_accessor :y, :x, :sprite
 
   def initialize(y, x, sprite)
     @y = y
