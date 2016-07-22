@@ -29,9 +29,10 @@ class Snake
       add.push(replace_head)
 
       # Remove the tip of the tail if the snake hasn't grown
-      if not @grow
+      if not @growing
         remove.push(@tail.pop)
       else
+        # Leaves the last piece in place
         @growing = false
       end
     else

@@ -56,6 +56,11 @@ class Game
             @window.addstr(segment.sprite)
           end
 
+          if snake.cannibal?
+            show_message(@window, 'Dead!')
+            Thread.current[:stop] = true
+          end
+
           @window.refresh
           sleep 0.1
         end
