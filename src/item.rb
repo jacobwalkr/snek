@@ -1,4 +1,4 @@
-class SnakeSegment
+class Item
   attr_accessor :y, :x, :sprite
 
   def initialize(y, x, sprite)

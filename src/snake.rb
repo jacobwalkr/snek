@@ -1,4 +1,3 @@
-require_relative "snake_segment"
 
 class Snake
   attr_reader :head, :tail
@@ -7,18 +6,18 @@ class Snake
   SPRITE_TAIL = "\u2592\u2592"
 
   def initialize(head_y, head_x)
-    @head = SnakeSegment.new(head_y, head_x, SPRITE_HEAD)
+    @head = Item.new(head_y, head_x, SPRITE_HEAD)
     @tail = []
     @growing = false
   end
 
   def move(direction)
-    # Returns two SnakeSegment arrays (remove, add), like a simplified list of changes
+    # Returns two Item arrays (remove, add), like a simplified list of changes
     add = []
     remove = []
 
     # Create a tail segment where the head was
-    replace_head = SnakeSegment.new(@head.y, @head.x, SPRITE_TAIL)
+    replace_head = Item.new(@head.y, @head.x, SPRITE_TAIL)
 
     # If there *is* a tail, put a segment where the head was and delete the tip of the tail
     # Otherwise, we'll clear where the head was
